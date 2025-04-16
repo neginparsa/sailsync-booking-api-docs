@@ -1,0 +1,14 @@
+personalization:
+  journey_orchestration:
+    tools: ["Adobe Journey Optimizer", "Salesforce Marketing Cloud", "Braze", "Klaviyo"]
+    triggers:
+      - type: "Pre-cruise countdown"
+        content: ["Weather forecast", "Packing tips", "Itinerary reminders"]
+      - type: "Behavioral"
+        conditions:
+          - "Incomplete check-in"
+          - "Browsing suites multiple times"
+        actions: ["Send reminder email", "Send upgrade offer"]
+      - type: "Reactivation"
+        segments: ["Lapsed cruisers"]
+        offers: ["Regional offers based on past destinations"]

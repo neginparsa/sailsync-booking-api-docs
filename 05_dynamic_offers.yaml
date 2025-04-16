@@ -1,0 +1,8 @@
+personalization:
+  dynamic_offers:
+    tools: ["Salesforce Commerce Cloud", "Adobe Commerce"]
+    bundles:
+      - "7-day Caribbean + Spa"
+    upsells:
+      based_on: ["Onboard behavior"]
+      items: ["Beverage package", "Specialty dining", "Photo bundles"]

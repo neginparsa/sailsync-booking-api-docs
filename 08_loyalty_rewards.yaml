@@ -1,0 +1,11 @@
+personalization:
+  loyalty_rewards:
+    systems: ["Custom CRM", "CDP"]
+    tiers:
+      - name: "Gold"
+        benefits: ["Priority disembarkation", "Welcome gift"]
+      - name: "Platinum"
+        benefits: ["Wine pairing dinner", "Free excursions"]
+    milestone_rewards:
+      - condition: "5th cruise"
+        reward: "Complimentary wine dinner"

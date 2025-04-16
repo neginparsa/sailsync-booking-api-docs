@@ -1,0 +1,7 @@
+personalization:
+  ai_recommendations:
+    tools: ["Adobe Sensei", "Einstein", "Google Recommendations AI"]
+    recommendations:
+      based_on: ["Age", "Group type", "Weather", "Behavior"]
+    alerts:
+      - "Guests who booked your suite also liked..."

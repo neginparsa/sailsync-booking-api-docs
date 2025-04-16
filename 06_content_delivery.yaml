@@ -1,0 +1,13 @@
+personalization:
+  content_delivery:
+    tools: ["Adobe Experience Manager", "Contentful", "Storyblok"]
+    content_variants:
+      - for: "Parents"
+        visuals: "Family-friendly"
+      - for: "Luxury Guests"
+        visuals: "Luxe suite imagery"
+      - for: "Localized users"
+        visuals: "Localized content"
+    personalization:
+      type: "Video"
+      dynamic_fields: ["Name", "Next adventure destination"]

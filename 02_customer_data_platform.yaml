@@ -1,0 +1,11 @@
+personalization:
+  customer_data_platform:
+    tools: ["Adobe Experience Platform", "Segment", "Tealium"]
+    profile_components: ["Cruise history", "Dietary preferences", "Onboard spending behavior", "Loyalty tier", "Birthdays"]
+    audience_segments:
+      - name: "Wellness travelers"
+        offers: ["Yoga excursions", "Spa packages"]
+      - name: "Foodies"
+        offers: ["Culinary excursions", "Wine tastings"]
+      - name: "Families"
+        offers: ["Kids club", "Family nights"]

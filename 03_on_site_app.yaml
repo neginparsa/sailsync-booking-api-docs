@@ -1,0 +1,12 @@
+personalization:
+  on_site_app:
+    tools: ["Adobe Target", "Optimizely", "Dynamic Yield"]
+    homepage_personalization:
+      new_visitors: "Explore your first cruise"
+      returning_guests: "Loyalty offers and personalized journeys"
+    onboard_app:
+      features:
+        - type: "Activity Feed"
+          personalized_by: ["User interest"]
+        - type: "Notifications"
+          examples: ["Your favorite bartender is hosting a class"]

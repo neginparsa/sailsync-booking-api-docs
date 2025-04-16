@@ -1,0 +1,9 @@
+personalization:
+  behavioral_analytics:
+    tools: ["Adobe Analytics", "Google Analytics", "Mixpanel"]
+    triggers:
+      - name: "Abandoned excursion cart"
+        action: "Send push or email reminder"
+    testing:
+      - name: "Adventure vs. Relaxation theme"
+        method: "A/B Testing"
