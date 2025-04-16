@@ -1,3 +1,4 @@
+openapi: 3.0.3
 personalization:
   dynamic_offers:
     tools: ["Salesforce Commerce Cloud", "Adobe Commerce"]
