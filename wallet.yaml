@@ -1,0 +1,47 @@
+openapi: 3.0.3
+info:
+  title: Wallet API
+  version: 1.0.0
+  description: API for managing onboard digital wallet transactions.
+paths:
+  /wallets/{guestId}/balance:
+    get:
+      summary: Get wallet balance
+      parameters:
+        - in: path
+          name: guestId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Wallet balance info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balance:
+                    type: number
+                    format: float
+                  currency:
+                    type: string
+  /wallets/{guestId}/charge:
+    post:
+      summary: Charge the wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [amount]
+              properties:
+                amount:
+                  type: number
+                  format: float
+                reason:
+                  type: string
+      responses:
+        '201':
+          description: Transaction completed

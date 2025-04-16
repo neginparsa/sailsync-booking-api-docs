@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: Guest Check-In API
+  version: 1.0.0
+  description: API for handling facial recognition-based check-in and embarkation.
+paths:
+  /checkin/facial-scan:
+    post:
+      summary: Submit facial scan for check-in
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [imageData]
+              properties:
+                imageData:
+                  type: string
+                  format: byte
+      responses:
+        '200':
+          description: Guest matched and checked in
+  /checkin/status/{guestId}:
+    get:
+      summary: Check-in status for a guest
+      parameters:
+        - in: path
+          name: guestId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Current check-in status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [pending, confirmed, rejected]

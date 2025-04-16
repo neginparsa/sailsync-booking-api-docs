@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info:
+  title: Guest Profile API
+  version: 1.0.0
+  description: API for managing guest identities, preferences, and loyalty tiers.
+paths:
+  /guests/{guestId}:
+    get:
+      summary: Get guest profile
+      parameters:
+        - in: path
+          name: guestId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Guest profile details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  guestId:
+                    type: string
+                  name:
+                    type: string
+                  loyaltyTier:
+                    type: string
