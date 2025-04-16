@@ -2,30 +2,50 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>SailSync Cruise APIs – Interactive Docs</title>
+    <title>SailSync Booking API Documentation</title>
     <link rel="stylesheet" type="text/css" href="swagger-ui.css" />
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
     <style>
-      html { box-sizing: border-box; overflow-y: scroll; }
-      *, *:before, *:after { box-sizing: inherit; }
-      body { margin: 0; background: #f5f7fa; font-family: 'Segoe UI', sans-serif; }
+      html {
+        box-sizing: border-box;
+        overflow: -moz-scrollbars-vertical;
+        overflow-y: scroll;
+      }
+      *, *:before, *:after {
+        box-sizing: inherit;
+      }
+      body {
+        margin: 0;
+        background: #fafafa;
+      }
     </style>
   </head>
-
   <body>
     <div id="swagger-ui"></div>
 
-    <script src="swagger-ui-bundle.js" charset="UTF-8"></script>
-    <script src="swagger-ui-standalone-preset.js" charset="UTF-8"></script>
+    <script src="swagger-ui-bundle.js"></script>
+    <script src="swagger-ui-standalone-preset.js"></script>
     <script>
-      window.onload = function() {
-        SwaggerUIBundle({
+      window.onload = () => {
+        const ui = SwaggerUIBundle({
           urls: [
-            { url: "guest-profile.yaml", name: "👤 Guest Profile API" },
-            { url: "wallet.yaml", name: "💳 Wallet API" },
-            { url: "checkin.yaml", name: "🛂 Check-In API" },
-            { url: "ports.yaml", name: "⚓ Port Destinations API" },
-            { url: "personalization.yaml", name: "🎯 Personalization API" },
-            { url: "identification.yaml", name: "🔐 Identity & Security API" }
+            { url: "booking.yaml", name: "Booking" },
+            { url: "booking-service.yaml", name: "Booking Service" },
+            { url: "checkin.yaml", name: "Check-in" },
+            { url: "guest-profile.yaml", name: "Guest Profile" },
+            { url: "identification.yaml", name: "Identification" },
+            { url: "wallet.yaml", name: "Wallet" },
+            { url: "ports.yaml", name: "Ports & Destinations" },
+            { url: "personalization.yaml", name: "Personalization Overview" },
+            { url: "01_email_journey_orchestration.yaml", name: "01 - Email & Journey" },
+            { url: "02_customer_data_platform.yaml", name: "02 - CDP & Segmentation" },
+            { url: "03_on_site_app.yaml", name: "03 - On-site/App Personalization" },
+            { url: "04_analytics_behavioral.yaml", name: "04 - Behavioral Analytics" },
+            { url: "05_dynamic_offers.yaml", name: "05 - Dynamic Offers" },
+            { url: "06_content_delivery.yaml", name: "06 - Content Delivery" },
+            { url: "07_ai_recommendations.yaml", name: "07 - AI Recommendations" },
+            { url: "08_loyalty_rewards.yaml", name: "08 - Loyalty & Rewards" }
           ],
           dom_id: "#swagger-ui",
           deepLinking: true,
@@ -35,6 +55,8 @@
           ],
           layout: "StandaloneLayout"
         });
+
+        window.ui = ui;
       };
     </script>
   </body>
