@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  title: SailSync Booking API
+  version: 1.0.0
+  description: |
+    This API allows guests to check availability and make spa bookings.
+    It supports GET for available times and POST for booking appointments.
+
+servers:
+  - url: https://api.sailsync.com/v1
+    description: Production server
+
+paths:
+  /booking/spa/availability:
+    get:
+      summary: Get available spa appointments
+      description: Returns a list of available spa time slots for a given date.
+      parameters:
+        - in: query
+          name: date
+          required: true
+          schema:
+            type: string
+            format: date
+          description: Date for availability lookup (YYYY-MM-DD)
+      responses:
+        '200':
+          description: Successful response with available time slots
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: "14:30"
+        '400':
+          description: Invalid date format
+
+  /booking/spa:
+    post:
+      summary: Book a spa appointment
+      description: Creates a new spa booking for a guest.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - guestId
+                - date
+                - time
+                - serviceType
+              properties:
+                guestId:
+                  type: string
+                  example: "123e4567-e89b-12d3-a456-426614174000"
+                date:
+                  type: string
+                  format: date
+                  example: "2025-04-18"
+                time:
+                  type: string
+                  example: "14:30"
+                serviceType:
+                  type: string
+                  enum: [massage, facial, sauna]
+                  example: "massage"
+                notes:
+                  type: string
+                  example: "Allergic to eucalyptus oil"
+      responses:
+        '201':
+          description: Booking confirmed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    example: "booking_987654321"
+                  status:
+                    type: string
+                    example: "confirmed"
+        '400':
+          description: Missing or invalid fields
+        '409':
+          description: Time slot not available

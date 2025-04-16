@@ -1,0 +1,77 @@
+components:
+  schemas:
+    AIRecommendations:
+      description: AI-powered tools and strategies for personalized guest experiences.
+      properties:
+        alerts:
+          description: Alert-style personalized messages surfaced by AI algorithms.
+          items:
+            example: Guests who booked your suite also liked...
+            type: string
+          type: array
+        recommendations:
+          $ref: '#/components/schemas/RecommendationLogic'
+        tools:
+          description: Platforms used to generate machine learning-driven recommendations.
+          items:
+            enum:
+            - Adobe Sensei
+            - Einstein
+            - Google Recommendations AI
+            type: string
+          type: array
+      type: object
+    RecommendationLogic:
+      properties:
+        based_on:
+          description: Data points used to power recommendations.
+          example:
+          - Age
+          - Group type
+          - Weather
+          - Behavior
+          items:
+            enum:
+            - Age
+            - Group type
+            - Weather
+            - Behavior
+            type: string
+          type: array
+      required:
+      - based_on
+      type: object
+info:
+  contact:
+    email: support@pingquack.com
+    name: PingQuack Inc.
+    url: https://www.pingquack.com
+  description: 'This schema defines how AI-based recommendation engines are used for
+    personalization in a cruise line environment. It outlines tools, recommendation
+    input factors, and personalized alert messages triggered by AI algorithms.
+
+    '
+  title: AI-Powered Recommendations Personalization Schema
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /example:
+    get:
+      responses:
+        '200':
+          description: Successful response
+      summary: Example placeholder endpoint
+x-personalization:
+  ai_recommendations:
+    alerts:
+    - Guests who booked your suite also liked...
+    recommendations:
+      based_on:
+      - Age
+      - Group type
+      - Weather
+      - Behavior
+    tools:
+    - Adobe Sensei
+    - Einstein
+    - Google Recommendations AI

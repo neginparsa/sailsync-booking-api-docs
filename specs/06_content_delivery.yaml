@@ -1,0 +1,101 @@
+components:
+  schemas:
+    ContentDelivery:
+      description: Content management systems and dynamic content strategies used
+        for guest personalization.
+      properties:
+        content_variants:
+          description: Different versions of content tailored to specific guest segments.
+          items:
+            $ref: '#/components/schemas/ContentVariant'
+          type: array
+        personalization:
+          $ref: '#/components/schemas/ContentPersonalization'
+        tools:
+          description: CMS platforms used to create and manage personalized content
+            experiences.
+          items:
+            enum:
+            - Adobe Experience Manager
+            - Contentful
+            - Storyblok
+            type: string
+          type: array
+      type: object
+    ContentPersonalization:
+      properties:
+        dynamic_fields:
+          description: Personalized fields that are dynamically inserted into the
+            content.
+          example:
+          - Name
+          - Next adventure destination
+          items:
+            type: string
+          type: array
+        type:
+          description: Type of dynamic content.
+          enum:
+          - Video
+          - Email
+          - Banner
+          - Interactive Widget
+          example: Video
+          type: string
+      required:
+      - type
+      - dynamic_fields
+      type: object
+    ContentVariant:
+      properties:
+        for:
+          description: The target audience for this content variant.
+          example: Parents
+          type: string
+        visuals:
+          description: Description of the visual content theme used.
+          example: Family-friendly
+          type: string
+      required:
+      - for
+      - visuals
+      type: object
+info:
+  contact:
+    email: support@pingquack.com
+    name: PingQuack Inc.
+    url: https://www.pingquack.com
+  description: 'This schema defines tools and strategies for delivering personalized
+    content to cruise guests. It includes the use of modern CMS platforms, content
+    variants for targeted segments, and dynamic content types like personalized video
+    fields.
+
+    '
+  title: Cruise Content Delivery Personalization Schema
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /example:
+    get:
+      responses:
+        '200':
+          description: Successful response
+      summary: Example placeholder endpoint
+x-personalization:
+  content_delivery:
+    content_variants:
+    - for: Parents
+      visuals: Family-friendly
+    - for: Luxury Guests
+      visuals: Luxe suite imagery
+    - for: Localized users
+      visuals: Localized content
+    personalization:
+      dynamic_fields:
+      - Name
+      - Next adventure destination
+      type: Video
+    tools:
+    - Adobe Experience Manager
+    - Contentful
+    - Storyblok

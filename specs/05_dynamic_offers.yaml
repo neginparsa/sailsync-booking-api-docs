@@ -1,40 +1,82 @@
-openapi: 3.0.3
-info:
-  title: Dynamic Offers API
-  version: 1.0.0
-  description: Personalization through dynamic offer presentation.
-paths:
-  /personalization/dynamic-offers:
-    get:
-      summary: Get dynamic offer personalization settings
-      responses:
-        '200':
-          description: Dynamic offer personalization configuration
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DynamicOffers'
 components:
   schemas:
     DynamicOffers:
-      type: object
+      description: Tools and strategies used to deliver personalized bundles and upsells.
       properties:
-        tools:
-          type: array
-          items:
-            type: string
         bundles:
+          description: Pre-packaged vacation bundles tailored to guest preferences.
+          items:
+            example: 7-day Caribbean + Spa
+            type: string
           type: array
+        tools:
+          description: Commerce platforms integrated with the personalization engine.
+          items:
+            enum:
+            - Salesforce Commerce Cloud
+            - Adobe Commerce
+            type: string
+          type: array
+        upsells:
+          $ref: '#/components/schemas/UpsellStrategy'
+      type: object
+    UpsellStrategy:
+      description: Personalization logic for recommending upsell items.
+      properties:
+        based_on:
+          description: Behavioral or profile-based conditions that trigger upsell
+            recommendations.
+          example:
+          - Onboard behavior
+          - Booking history
+          - Loyalty tier
           items:
             type: string
-        upsells:
-          type: object
-          properties:
-            based_on:
-              type: array
-              items:
-                type: string
-            items:
-              type: array
-              items:
-                type: string
+          type: array
+        items:
+          description: List of upsell products shown dynamically to guests.
+          example:
+          - Beverage package
+          - Specialty dining
+          - Photo bundles
+          items:
+            type: string
+          type: array
+      required:
+      - based_on
+      - items
+      type: object
+info:
+  contact:
+    email: support@pingquack.com
+    name: PingQuack Inc.
+    url: https://www.pingquack.com
+  description: 'This schema captures the personalization logic for dynamic offers
+    on a cruise line platform. It includes tools for offer management, curated bundles,
+    and upsell strategies based on guest behavior.
+
+    '
+  title: Cruise Dynamic Offers Personalization Schema
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /example:
+    get:
+      responses:
+        '200':
+          description: Successful response
+      summary: Example placeholder endpoint
+x-personalization:
+  dynamic_offers:
+    bundles:
+    - 7-day Caribbean + Spa
+    tools:
+    - Salesforce Commerce Cloud
+    - Adobe Commerce
+    upsells:
+      based_on:
+      - Onboard behavior
+      items:
+      - Beverage package
+      - Specialty dining
+      - Photo bundles

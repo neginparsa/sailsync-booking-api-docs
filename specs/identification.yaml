@@ -1,0 +1,46 @@
+openapi: 3.0.3
+info:
+  title: Identification & Security API
+  version: 1.0.0
+  description: API for managing facial recognition and identity validation.
+paths:
+  /identity/verify:
+    post:
+      summary: Verify identity using biometrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [imageData]
+              properties:
+                imageData:
+                  type: string
+                  format: byte
+      responses:
+        '200':
+          description: Identity verified
+  /identity/history/{guestId}:
+    get:
+      summary: Retrieve verification history
+      parameters:
+        - in: path
+          name: guestId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Verification history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    timestamp:
+                      type: string
+                    status:
+                      type: string

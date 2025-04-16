@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+  title: Cruise Port & Destination API
+  version: 1.0.0
+  description: |
+    This API allows partners and internal systems to access information about 
+    cruise destinations, ports of call, and activities available at each port. 
+    Includes search, categorization, and personalization hints to enhance guest experiences.
+
+servers:
+  - url: https://api.cruise-line.com/v1
+    description: Production server
+  - url: https://sandbox.api.cruise-line.com/v1
+    description: Sandbox server
+
+tags:
+  - name: Destinations
+    description: Operations related to cruise destinations and ports
+  - name: Activities
+    description: Operations related to experiences and excursions at ports
+
+paths:
+  /destinations:
+    get:
+      tags:
+        - Destinations
+      summary: List all available cruise destinations
+      description: Retrieve a list of destinations with optional filters for region and popularity
+      parameters:
+        - in: query
+          name: region
+          schema:
+            type: string
+          description: Filter destinations by region (e.g., Caribbean, Mediterranean)
+        - in: query
+          name: popular
+          schema:
+            type: boolean
+          description: Filter to return only popular destinations
+      responses:
+        '200':
+          description: A list of cruise destinations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  destinations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Destination'
+
+  /destinations/{portCode}:
+    get:
+      tags:
+        - Destinations
+      summary: Get detailed information about a specific port
+      parameters:
+        - in: path
+          name: portCode
+          required: true
+          schema:
+            type: string
+          description: Unique code representing the port (e.g., "JMK" for Mykonos)
+      responses:
+        '200':
+          description: Detailed information about the port
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortDetails'
+
+  /destinations/{portCode}/activities:
+    get:
+      tags:
+        - Activities
+      summary: Retrieve available activities for a specific destination port
+      description: Returns excursions, tours, and onboard experiences linked to the destination
+      parameters:
+        - in: path
+          name: portCode
+          required: true
+          schema:
+            type: string
+          description: Unique code representing the port
+        - in: query
+          name: category
+          schema:
+            type: string
+          description: Filter by activity category (e.g., "Adventure", "Cultural", "Relaxation")
+        - in: query
+          name: duration
+          schema:
+            type: string
+            enum: [Half-Day, Full-Day, Evening]
+          description: Filter by duration of the activity
+      responses:
+        '200':
+          description: A list of available activities at the port
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activities:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Activity'
+        '404':
+          description: Port not found
+
+components:
+  schemas:
+    Destination:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Santorini"
+        region:
+          type: string
+          example: "Mediterranean"
+        portCode:
+          type: string
+          example: "JTR"
+        popular:
+          type: boolean
+          example: true
+        country:
+          type: string
+          example: "Greece"
+        imageUrl:
+          type: string
+          format: uri
+          example: "https://cdn.cruise-line.com/images/santorini.jpg"
+        description:
+          type: string
+          example: "White-washed buildings, caldera views, and island charm."
+
+    PortDetails:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Santorini Port"
+        portCode:
+          type: string
+          example: "JTR"
+        facilities:
+          type: array
+          items:
+            type: string
+          example: ["Shuttle Service", "Wheelchair Access", "Free Wi-Fi"]
+        localTime:
+          type: string
+          example: "GMT+2"
+        timezone:
+          type: string
+          example: "Europe/Athens"
+        emergencyContacts:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              phone:
+                type: string
+              role:
+                type: string
+          example:
+            - name: "Port Authority"
+              phone: "+30-22860-12345"
+              role: "General Inquiry"
+
+    Activity:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "ACT12345"
+        activity:
+          type: string
+          example: "Volcano Hiking Tour"
+        description:
+          type: string
+          example: "Hike along the Nea Kameni volcano and swim in the hot springs."
+        category:
+          type: string
+          example: "Adventure"
+        duration:
+          type: string
+          example: "Half-Day"
+        price:
+          type: number
+          format: float
+          example: 89.99
+        currency:
+          type: string
+          example: "USD"
+        imageUrl:
+          type: string
+          example: "https://cdn.cruise-line.com/activities/volcano-hike.jpg"
+        availability:
+          type: string
+          example: "Available"
+        ageRestriction:
+          type: string
+          example: "12+"
+        tags:
+          type: array
+          items:
+            type: string
+          example: ["Guided Tour", "Outdoor", "Moderate Activity"]
+
+externalDocs:
+  description: API Developer Documentation
+  url: https://developer.cruise-line.com/docs/port-activities
+

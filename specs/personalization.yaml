@@ -1,0 +1,35 @@
+openapi: 3.0.3
+info:
+  title: Guest Personalization API
+  version: 1.0.0
+  description: API for returning personalized recommendations based on guest profile and preferences.
+paths:
+  /personalization/recommendations:
+    post:
+      summary: Get personalized content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                guestId:
+                  type: string
+                context:
+                  type: string
+                  example: "daytime_onboard"
+      responses:
+        '200':
+          description: Personalized content list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    category:
+                      type: string

@@ -1,0 +1,108 @@
+components:
+  schemas:
+    LoyaltyRewards:
+      description: Tools and structures used to implement and manage guest loyalty
+        reward programs.
+      properties:
+        reward_triggers:
+          description: Events that generate loyalty points or rewards automatically.
+          items:
+            $ref: '#/components/schemas/RewardTrigger'
+          type: array
+        tiers:
+          description: Reward levels assigned to guests based on activity or spend.
+          items:
+            $ref: '#/components/schemas/LoyaltyTier'
+          type: array
+        tools:
+          description: Platforms used for tracking loyalty tiers, points, and guest
+            engagement.
+          items:
+            enum:
+            - Salesforce Loyalty Management
+            - Oracle Loyalty Cloud
+            - Annex Cloud
+            type: string
+          type: array
+      type: object
+    LoyaltyTier:
+      properties:
+        name:
+          description: Name of the loyalty tier.
+          example: Platinum
+          type: string
+        perks:
+          description: Benefits associated with the tier.
+          example:
+          - Priority boarding
+          - Spa access
+          - Free specialty dining
+          items:
+            type: string
+          type: array
+      required:
+      - name
+      - perks
+      type: object
+    RewardTrigger:
+      properties:
+        event:
+          description: Behavior or milestone that activates a reward.
+          example: Completed 5th cruise
+          type: string
+        points:
+          description: Number of loyalty points awarded.
+          example: 500
+          type: integer
+      required:
+      - event
+      - points
+      type: object
+info:
+  contact:
+    email: support@pingquack.com
+    name: PingQuack Inc.
+    url: https://www.pingquack.com
+  description: 'This schema defines the structure of loyalty rewards used in cruise
+    personalization strategies. It outlines platforms, tier-based benefits, and automated
+    triggers for earning or redeeming loyalty points.
+
+    '
+  title: Loyalty Rewards Personalization Schema
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /example:
+    get:
+      responses:
+        '200':
+          description: Successful response
+      summary: Example placeholder endpoint
+x-personalization:
+  loyalty_rewards:
+    reward_triggers:
+    - event: Completed 5th cruise
+      points: 500
+    - event: Referred a friend
+      points: 300
+    - event: Booked a suite
+      points: 200
+    tiers:
+    - name: Gold
+      perks:
+      - Free welcome drink
+      - 10% off onboard shopping
+    - name: Platinum
+      perks:
+      - Priority boarding
+      - Spa access
+      - Free specialty dining
+    - name: Diamond
+      perks:
+      - Personal concierge
+      - Free shore excursions
+      - Suite upgrade eligibility
+    tools:
+    - Salesforce Loyalty Management
+    - Oracle Loyalty Cloud
+    - Annex Cloud

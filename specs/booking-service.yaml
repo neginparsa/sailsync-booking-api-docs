@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: Booking Service API
+  version: 1.0.0
+  description: API for handling guest bookings for spa, dining, and excursions.
+
+servers:
+  - url: https://api.sailsync.com/v1
+
+paths:
+  /booking/spa/availability:
+    get:
+      summary: Get available spa appointments
+      parameters:
+        - in: query
+          name: date
+          required: true
+          schema:
+            type: string
+            format: date
+          description: Date for which to check availability (YYYY-MM-DD)
+      responses:
+        '200':
+          description: List of available time slots
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: "14:30"
+        '400':
+          description: Invalid input
+
+  /booking/spa:
+    post:
+      summary: Book a spa appointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - guestId
+                - date
+                - time
+                - serviceType
+              properties:
+                guestId:
+                  type: string
+                  example: "123e4567-e89b-12d3-a456-426614174000"
+                date:
+                  type: string
+                  format: date
+                  example: "2025-04-18"
+                time:
+                  type: string
+                  example: "14:30"
+                serviceType:
+                  type: string
+                  enum: [massage, facial, sauna]
+                  example: "massage"
+                notes:
+                  type: string
+                  example: "Allergic to eucalyptus oil"
+      responses:
+        '201':
+          description: Booking confirmed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    example: "booking_987654321"
+                  status:
+                    type: string
+                    example: "confirmed"
+        '400':
+          description: Missing or invalid fields
+        '409':
+          description: Time slot no longer available

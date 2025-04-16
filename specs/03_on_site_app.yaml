@@ -1,50 +1,99 @@
-openapi: 3.0.3
-info:
-  title: On-Site & App Personalization API
-  version: 1.0.0
-  description: Personalization techniques applied on-site and within mobile apps.
-paths:
-  /personalization/on-site-app:
-    get:
-      summary: Get on-site and app personalization settings
-      responses:
-        '200':
-          description: App personalization settings
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppPersonalization'
 components:
   schemas:
-    AppPersonalization:
-      type: object
+    OnSiteAppPersonalization:
+      description: Tools and personalization strategies applied to on-site and onboard
+        applications.
       properties:
-        tools:
-          type: array
-          items:
-            type: string
         homepage_personalization:
-          type: object
+          description: Homepage content tailored based on visitor status.
           properties:
             new_visitors:
+              description: Messaging for first-time users visiting the site or app.
+              example: Explore your first cruise
               type: string
             returning_guests:
+              description: Offers and messages targeted at loyal or repeat guests.
+              example: Loyalty offers and personalized journeys
               type: string
-        onboard_app:
           type: object
+        onboard_app:
+          description: Personalization within the onboard mobile or tablet experience.
           properties:
             features:
-              type: array
+              description: Interactive components of the onboard app that use personalization.
               items:
-                type: object
-                properties:
-                  type:
-                    type: string
-                  personalized_by:
-                    type: array
-                    items:
-                      type: string
-                  examples:
-                    type: array
-                    items:
-                      type: string
+                $ref: '#/components/schemas/OnboardFeature'
+              type: array
+          type: object
+        tools:
+          description: Platforms used for A/B testing, experience targeting, and real-time
+            personalization.
+          items:
+            enum:
+            - Adobe Target
+            - Optimizely
+            - Dynamic Yield
+            type: string
+          type: array
+      type: object
+    OnboardFeature:
+      description: A feature inside the onboard app with personalization logic.
+      properties:
+        examples:
+          description: Sample notifications or personalized content used within the
+            feature.
+          example:
+          - Your favorite bartender is hosting a class
+          items:
+            type: string
+          type: array
+        personalized_by:
+          description: Data or behavior used to personalize the feature.
+          example:
+          - User interest
+          items:
+            type: string
+          type: array
+        type:
+          description: Name of the feature or module within the onboard app.
+          example: Activity Feed
+          type: string
+      required:
+      - type
+      type: object
+info:
+  contact:
+    email: support@pingquack.com
+    name: PingQuack Inc.
+    url: https://www.pingquack.com
+  description: "This schema defines personalization strategies used within the cruise\
+    \ line\u2019s on-site digital experience. It covers homepage personalization for\
+    \ both new and returning guests, and personalization features within the onboard\
+    \ app such as activity feeds and real-time notifications.\n"
+  title: Cruise On-Site App Personalization Schema
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /example:
+    get:
+      responses:
+        '200':
+          description: Successful response
+      summary: Example placeholder endpoint
+x-personalization:
+  on_site_app:
+    homepage_personalization:
+      new_visitors: Explore your first cruise
+      returning_guests: Loyalty offers and personalized journeys
+    onboard_app:
+      features:
+      - personalized_by:
+        - User interest
+        type: Activity Feed
+      - examples:
+        - Your favorite bartender is hosting a class
+        type: Notifications
+    tools:
+    - Adobe Target
+    - Optimizely
+    - Dynamic Yield

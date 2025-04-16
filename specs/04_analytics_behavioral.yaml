@@ -1,43 +1,95 @@
-openapi: 3.0.3
-info:
-  title: Behavioral Analytics Personalization API
-  version: 1.0.0
-  description: Personalization using behavioral analytics and testing methods.
-paths:
-  /personalization/behavioral-analytics:
-    get:
-      summary: Get behavioral analytics personalization settings
-      responses:
-        '200':
-          description: Behavioral analytics and test strategies
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BehavioralAnalytics'
 components:
   schemas:
-    BehavioralAnalytics:
-      type: object
+    BehaviorTest:
+      description: Testing method to evaluate effectiveness of different personalization
+        strategies.
       properties:
-        tools:
-          type: array
-          items:
-            type: string
-        triggers:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              action:
-                type: string
+        method:
+          description: Type of experiment being conducted.
+          enum:
+          - A/B Testing
+          - Multivariate Testing
+          - Split URL Testing
+          - Personalization Variant Testing
+          example: A/B Testing
+          type: string
+        name:
+          description: Name or description of the test.
+          example: Adventure vs. Relaxation theme
+          type: string
+      required:
+      - name
+      - method
+      type: object
+    BehaviorTrigger:
+      description: A user behavior that triggers a personalization action.
+      properties:
+        action:
+          description: The action taken when this behavior is detected.
+          example: Send push or email reminder
+          type: string
+        name:
+          description: The event or behavior being tracked.
+          example: Abandoned excursion cart
+          type: string
+      required:
+      - name
+      - action
+      type: object
+    BehavioralAnalytics:
+      description: Behavioral tracking tools, trigger actions, and experimentation
+        methods.
+      properties:
         testing:
-          type: array
+          description: Experiments designed to evaluate personalization effectiveness.
           items:
-            type: object
-            properties:
-              name:
-                type: string
-              method:
-                type: string
+            $ref: '#/components/schemas/BehaviorTest'
+          type: array
+        tools:
+          description: Analytics tools used to track user behavior across digital
+            touchpoints.
+          items:
+            enum:
+            - Adobe Analytics
+            - Google Analytics
+            - Mixpanel
+            type: string
+          type: array
+        triggers:
+          description: Behavior-based triggers that activate personalized actions
+            or content.
+          items:
+            $ref: '#/components/schemas/BehaviorTrigger'
+          type: array
+      type: object
+info:
+  contact:
+    email: support@pingquack.com
+    name: PingQuack Inc.
+    url: https://www.pingquack.com
+  description: "This schema defines the behavioral analytics strategy for a cruise\
+    \ line\u2019s personalization engine. It captures tools used for analytics, behavioral\
+    \ triggers used for messaging automation, and experimentation methods like A/B\
+    \ testing to optimize guest experiences.\n"
+  title: Cruise Behavioral Analytics Personalization Schema
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /example:
+    get:
+      responses:
+        '200':
+          description: Successful response
+      summary: Example placeholder endpoint
+x-personalization:
+  behavioral_analytics:
+    testing:
+    - method: A/B Testing
+      name: Adventure vs. Relaxation theme
+    tools:
+    - Adobe Analytics
+    - Google Analytics
+    - Mixpanel
+    triggers:
+    - action: Send push or email reminder
+      name: Abandoned excursion cart

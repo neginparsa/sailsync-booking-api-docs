@@ -1,0 +1,124 @@
+components:
+  schemas:
+    Stateroom:
+      description: A single stateroom on a cruise ship with attributes for booking
+        and personalization.
+      properties:
+        accessible:
+          description: Indicates whether the room is wheelchair accessible.
+          example: true
+          type: boolean
+        connecting_rooms:
+          description: List of stateroom IDs that connect to this one.
+          example:
+          - SR-10235
+          items:
+            type: string
+          type: array
+        deck:
+          description: Deck number where the stateroom is located.
+          example: 7
+          type: integer
+        features:
+          description: Physical and experiential features of the stateroom.
+          example:
+          - King bed
+          - Oceanview window
+          - Private balcony
+          - Mini fridge
+          - Sofa bed
+          items:
+            type: string
+          type: array
+        id:
+          description: Unique identifier for the stateroom.
+          example: SR-10234
+          type: string
+        occupancy:
+          description: Maximum occupancy and current booking status.
+          properties:
+            currently_booked:
+              example: 2
+              type: integer
+            max_guests:
+              example: 4
+              type: integer
+          type: object
+        preferences:
+          description: Guest-selected preferences applied to this stateroom.
+          properties:
+            beverage_selection:
+              example: Sparkling water
+              type: string
+            fragrance_preference:
+              example: Unscented
+              type: string
+            housekeeping_frequency:
+              enum:
+              - Daily
+              - Twice Daily
+              - On Request
+              example: Daily
+              type: string
+            pillow_type:
+              example: Memory foam
+              type: string
+          type: object
+        type:
+          description: Stateroom category or class.
+          enum:
+          - Interior
+          - Oceanview
+          - Balcony
+          - Suite
+          example: Balcony
+          type: string
+      required:
+      - id
+      - type
+      - deck
+      - occupancy
+      - features
+      type: object
+info:
+  contact:
+    email: support@pingquack.com
+    name: PingQuack Inc.
+    url: https://www.pingquack.com
+  description: 'This schema represents the data structure for staterooms on a cruise
+    ship. It includes stateroom types, features, deck assignments, capacity limits,  accessibility
+    options, and guest preferences relevant for personalization and booking flows.
+
+    '
+  title: Cruise Line Staterooms Data Model
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /example:
+    get:
+      responses:
+        '200':
+          description: Successful response
+      summary: Example placeholder endpoint
+x-personalization:
+  staterooms:
+    sample:
+      accessible: false
+      connecting_rooms:
+      - SR-20455
+      deck: 12
+      features:
+      - King bed
+      - Private balcony
+      - Bathtub
+      - Butler service
+      id: SR-20456
+      occupancy:
+        currently_booked: 3
+        max_guests: 4
+      preferences:
+        beverage_selection: Orange Juice
+        fragrance_preference: Citrus
+        housekeeping_frequency: Twice Daily
+        pillow_type: Feather
+      type: Suite

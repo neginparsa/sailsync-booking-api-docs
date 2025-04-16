@@ -3,10 +3,11 @@ info:
   title: Email & Journey Orchestration API
   version: 1.0.0
   description: Personalization strategies for cruise guests through email and journey flows.
+
 paths:
   /personalization/email-journey:
     get:
-      summary: Get email and journey orchestration settings
+      summary: Get journey orchestration strategy
       responses:
         '200':
           description: Journey orchestration settings
@@ -14,6 +15,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JourneyOrchestration'
+
 components:
   schemas:
     JourneyOrchestration:

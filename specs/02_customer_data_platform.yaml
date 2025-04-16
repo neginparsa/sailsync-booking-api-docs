@@ -1,40 +1,118 @@
-openapi: 3.0.3
-info:
-  title: Customer Data Platform API
-  version: 1.0.0
-  description: Segmentation and profile composition for cruise customer data.
-paths:
-  /personalization/cdp:
-    get:
-      summary: Get CDP segmentation strategies
-      responses:
-        '200':
-          description: CDP personalization data
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CDP'
 components:
   schemas:
-    CDP:
-      type: object
+    AudienceSegment:
+      description: A customer segment defined by shared characteristics and targeted
+        offers.
       properties:
-        tools:
-          type: array
+        characteristics:
+          description: Optional characteristics that define the segment.
+          example:
+          - Interested in spa treatments
+          - High spend on wellness activities
           items:
             type: string
-        profile_components:
           type: array
+        name:
+          description: Name of the audience segment.
+          example: Wellness travelers
+          type: string
+        offers:
+          description: Personalized offers designed for the audience segment.
           items:
+            example: Yoga excursions
             type: string
+          type: array
+      required:
+      - name
+      - offers
+      type: object
+    PersonalizationProfile:
+      description: Key elements of personalization used to enhance guest experience
+        on cruise lines.
+      properties:
         audience_segments:
-          type: array
+          description: Segments of the customer base used to tailor personalized offers.
           items:
-            type: object
-            properties:
-              name:
+            $ref: '#/components/schemas/AudienceSegment'
+          type: array
+        customer_data_platform:
+          description: Tools and data strategies used for customer data collection
+            and enrichment.
+          properties:
+            profile_components:
+              description: Attributes collected and stitched together to form guest
+                profiles.
+              items:
+                enum:
+                - Cruise history
+                - Dietary preferences
+                - Onboard spending behavior
+                - Loyalty tier
+                - Birthdays
                 type: string
-              offers:
-                type: array
-                items:
-                  type: string
+              type: array
+            tools:
+              description: Platforms used to manage and analyze customer data.
+              items:
+                enum:
+                - Adobe Experience Platform
+                - Segment
+                - Tealium
+                type: string
+              type: array
+          type: object
+      type: object
+info:
+  contact:
+    email: support@pingquack.com
+    name: PingQuack Inc.
+    url: https://www.pingquack.com
+  description: 'This schema outlines personalization strategies for a cruise line''s
+    Customer Data Platform (CDP).  It includes tools used, key profile components,
+    and audience segments with tailored offers.
+
+    '
+  title: Cruise Personalization API Schema
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /example:
+    get:
+      responses:
+        '200':
+          description: Successful response
+      summary: Example placeholder endpoint
+x-personalization:
+  audience_segments:
+  - characteristics:
+    - High spa usage
+    - Frequently books yoga classes
+    name: Wellness travelers
+    offers:
+    - Yoga excursions
+    - Spa packages
+  - characteristics:
+    - Attends wine tastings
+    - "Prefers \xE0 la carte dining"
+    name: Foodies
+    offers:
+    - Culinary excursions
+    - Wine tastings
+  - characteristics:
+    - Travels with children under 12
+    - Participates in family-friendly activities
+    name: Families
+    offers:
+    - Kids club
+    - Family nights
+  customer_data_platform:
+    profile_components:
+    - Cruise history
+    - Dietary preferences
+    - Onboard spending behavior
+    - Loyalty tier
+    - Birthdays
+    tools:
+    - Adobe Experience Platform
+    - Segment
+    - Tealium
