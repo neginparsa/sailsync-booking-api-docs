@@ -1,10 +1,43 @@
 openapi: 3.0.3
-personalization:
-  behavioral_analytics:
-    tools: ["Adobe Analytics", "Google Analytics", "Mixpanel"]
-    triggers:
-      - name: "Abandoned excursion cart"
-        action: "Send push or email reminder"
-    testing:
-      - name: "Adventure vs. Relaxation theme"
-        method: "A/B Testing"
+info:
+  title: Behavioral Analytics Personalization API
+  version: 1.0.0
+  description: Personalization using behavioral analytics and testing methods.
+paths:
+  /personalization/behavioral-analytics:
+    get:
+      summary: Get behavioral analytics personalization settings
+      responses:
+        '200':
+          description: Behavioral analytics and test strategies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BehavioralAnalytics'
+components:
+  schemas:
+    BehavioralAnalytics:
+      type: object
+      properties:
+        tools:
+          type: array
+          items:
+            type: string
+        triggers:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              action:
+                type: string
+        testing:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              method:
+                type: string

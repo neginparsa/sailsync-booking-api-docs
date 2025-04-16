@@ -1,12 +1,40 @@
 openapi: 3.0.3
-personalization:
-  customer_data_platform:
-    tools: ["Adobe Experience Platform", "Segment", "Tealium"]
-    profile_components: ["Cruise history", "Dietary preferences", "Onboard spending behavior", "Loyalty tier", "Birthdays"]
-    audience_segments:
-      - name: "Wellness travelers"
-        offers: ["Yoga excursions", "Spa packages"]
-      - name: "Foodies"
-        offers: ["Culinary excursions", "Wine tastings"]
-      - name: "Families"
-        offers: ["Kids club", "Family nights"]
+info:
+  title: Customer Data Platform API
+  version: 1.0.0
+  description: Segmentation and profile composition for cruise customer data.
+paths:
+  /personalization/cdp:
+    get:
+      summary: Get CDP segmentation strategies
+      responses:
+        '200':
+          description: CDP personalization data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CDP'
+components:
+  schemas:
+    CDP:
+      type: object
+      properties:
+        tools:
+          type: array
+          items:
+            type: string
+        profile_components:
+          type: array
+          items:
+            type: string
+        audience_segments:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              offers:
+                type: array
+                items:
+                  type: string

@@ -1,13 +1,50 @@
 openapi: 3.0.3
-personalization:
-  on_site_app:
-    tools: ["Adobe Target", "Optimizely", "Dynamic Yield"]
-    homepage_personalization:
-      new_visitors: "Explore your first cruise"
-      returning_guests: "Loyalty offers and personalized journeys"
-    onboard_app:
-      features:
-        - type: "Activity Feed"
-          personalized_by: ["User interest"]
-        - type: "Notifications"
-          examples: ["Your favorite bartender is hosting a class"]
+info:
+  title: On-Site & App Personalization API
+  version: 1.0.0
+  description: Personalization techniques applied on-site and within mobile apps.
+paths:
+  /personalization/on-site-app:
+    get:
+      summary: Get on-site and app personalization settings
+      responses:
+        '200':
+          description: App personalization settings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppPersonalization'
+components:
+  schemas:
+    AppPersonalization:
+      type: object
+      properties:
+        tools:
+          type: array
+          items:
+            type: string
+        homepage_personalization:
+          type: object
+          properties:
+            new_visitors:
+              type: string
+            returning_guests:
+              type: string
+        onboard_app:
+          type: object
+          properties:
+            features:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  personalized_by:
+                    type: array
+                    items:
+                      type: string
+                  examples:
+                    type: array
+                    items:
+                      type: string

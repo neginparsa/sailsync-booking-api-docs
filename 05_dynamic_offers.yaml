@@ -1,9 +1,40 @@
 openapi: 3.0.3
-personalization:
-  dynamic_offers:
-    tools: ["Salesforce Commerce Cloud", "Adobe Commerce"]
-    bundles:
-      - "7-day Caribbean + Spa"
-    upsells:
-      based_on: ["Onboard behavior"]
-      items: ["Beverage package", "Specialty dining", "Photo bundles"]
+info:
+  title: Dynamic Offers API
+  version: 1.0.0
+  description: Personalization through dynamic offer presentation.
+paths:
+  /personalization/dynamic-offers:
+    get:
+      summary: Get dynamic offer personalization settings
+      responses:
+        '200':
+          description: Dynamic offer personalization configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicOffers'
+components:
+  schemas:
+    DynamicOffers:
+      type: object
+      properties:
+        tools:
+          type: array
+          items:
+            type: string
+        bundles:
+          type: array
+          items:
+            type: string
+        upsells:
+          type: object
+          properties:
+            based_on:
+              type: array
+              items:
+                type: string
+            items:
+              type: array
+              items:
+                type: string
