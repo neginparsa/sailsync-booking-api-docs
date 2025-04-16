@@ -1,3 +1,4 @@
+openapi: 3.0.3
 personalization:
   content_delivery:
     tools: ["Adobe Experience Manager", "Contentful", "Storyblok"]
