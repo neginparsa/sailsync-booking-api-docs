@@ -2,24 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>SailSync Booking API</title>
+    <title>SailSync Cruise APIs – Interactive Docs</title>
     <link rel="stylesheet" type="text/css" href="swagger-ui.css" />
     <style>
-      html { box-sizing: border-box; overflow: -moz-scrollbars-vertical; overflow-y: scroll; }
+      html { box-sizing: border-box; overflow-y: scroll; }
       *, *:before, *:after { box-sizing: inherit; }
-      body { margin: 0; background: #fafafa; }
+      body { margin: 0; background: #f5f7fa; font-family: 'Segoe UI', sans-serif; }
     </style>
   </head>
 
   <body>
     <div id="swagger-ui"></div>
 
-    <script src="swagger-ui-bundle.js" charset="UTF-8"> </script>
-    <script src="swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
+    <script src="swagger-ui-bundle.js" charset="UTF-8"></script>
+    <script src="swagger-ui-standalone-preset.js" charset="UTF-8"></script>
     <script>
       window.onload = function() {
-        const ui = SwaggerUIBundle({
-          url: "booking.yaml", // make sure this matches your file name
+        SwaggerUIBundle({
+          urls: [
+            { url: "guest-profile.yaml", name: "👤 Guest Profile API" },
+            { url: "wallet.yaml", name: "💳 Wallet API" },
+            { url: "checkin.yaml", name: "🛂 Check-In API" },
+            { url: "ports.yaml", name: "⚓ Port Destinations API" },
+            { url: "personalization.yaml", name: "🎯 Personalization API" },
+            { url: "identification.yaml", name: "🔐 Identity & Security API" }
+          ],
           dom_id: "#swagger-ui",
           deepLinking: true,
           presets: [
@@ -28,7 +35,6 @@
           ],
           layout: "StandaloneLayout"
         });
-        window.ui = ui;
       };
     </script>
   </body>
