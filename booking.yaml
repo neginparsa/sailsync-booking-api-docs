@@ -1,0 +1,19 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Booking API Documentation</title>
+      <link rel="stylesheet" type="text/css" href="swagger-ui.css" />
+    </head>
+    <body>
+      <div id="swagger-ui"></div>
+      <script src="swagger-ui-bundle.js"></script>
+      <script>
+        window.onload = function() {
+          SwaggerUIBundle({
+            url: "booking.yaml",
+            dom_id: "#swagger-ui"
+          });
+        };
+      </script>
+    </body>
+  </html>
