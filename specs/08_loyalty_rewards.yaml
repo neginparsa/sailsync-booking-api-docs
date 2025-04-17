@@ -3,6 +3,9 @@ components:
     LoyaltyRewards:
       description: Tools and structures used to implement and manage guest loyalty
         reward programs.
+    servers:
+  - url: https://api.sailsync.com/v1
+    description: Production server
       properties:
         reward_triggers:
           description: Events that generate loyalty points or rewards automatically.
