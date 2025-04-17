@@ -2,12 +2,14 @@ openapi: 3.0.3
 info:
   title: SailSync Booking API
   version: 1.0.0
-description: |
-  This API allows guests to check availability and make spa bookings.
-  It supports GET for available times and POST for booking appointments.
+  description: |
+    This API allows guests to check availability and make spa bookings.
+    It supports GET for available times and POST for booking appointments.
+
 servers:
   - url: https://api.sailsync.com/v1
     description: Production server
+
 paths:
   /booking/spa/availability:
     get:
@@ -33,6 +35,7 @@ paths:
                   example: 14:30
         "400":
           description: Invalid date format
+
   /booking/spa:
     post:
       summary: Book a spa appointment
