@@ -2,17 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SailSync Booking API</title>
-  <link rel="stylesheet" type="text/css" href="/sailsync-booking-api-docs/lib/swagger-ui.css" />
+  <title>SailSync API Explorer</title>
+  <link rel="stylesheet" type="text/css" href="lib/swagger-ui.css" />
 </head>
 <body>
   <div id="swagger-ui"></div>
-  <script src="/sailsync-booking-api-docs/lib/swagger-ui-bundle.js"></script>
-  <script src="/sailsync-booking-api-docs/lib/swagger-ui-standalone-preset.js"></script>
+
+  <script src="lib/swagger-ui-bundle.js"></script>
+  <script src="lib/swagger-ui-standalone-preset.js"></script>
   <script>
     window.onload = function () {
       window.ui = SwaggerUIBundle({
-        url: "/sailsync-booking-api-docs/specs/booking.yaml",
+        urls: [
+          { url: "specs/booking.yaml", name: "Booking" },
+          { url: "specs/booking-service.yaml", name: "Booking Service" },
+          { url: "specs/checkin.yaml", name: "Check-in" },
+          { url: "specs/guest-profile.yaml", name: "Guest Profile" },
+          { url: "specs/ports.yaml", name: "Ports" },
+          { url: "specs/wallet.yaml", name: "Wallet" },
+          { url: "specs/personalization.yaml", name: "Personalization" },
+          { url: "specs/identification.yaml", name: "Identification" },
+          { url: "specs/01_email_journey_orchestration.yaml", name: "Email Journey Orchestration" },
+          { url: "specs/02_customer_data_platform.yaml", name: "Customer Data Platform" },
+          { url: "specs/03_on_site_app.yaml", name: "On-Site App" },
+          { url: "specs/04_analytics_behavioral.yaml", name: "Analytics Behavioral" },
+          { url: "specs/05_dynamic_offers.yaml", name: "Dynamic Offers" },
+          { url: "specs/06_content_delivery.yaml", name: "Content Delivery" },
+          { url: "specs/07_ai_recommendations.yaml", name: "AI Recommendations" },
+          { url: "specs/08_loyalty_rewards.yaml", name: "Loyalty Rewards" }
+        ],
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
