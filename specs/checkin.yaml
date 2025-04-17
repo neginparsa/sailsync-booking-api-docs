@@ -3,6 +3,11 @@ info:
   title: Guest Check-In API
   version: 1.0.0
   description: API for handling facial recognition-based check-in and embarkation.
+
+servers:
+  - url: https://api.sailsync.com/v1
+    description: Production server
+
 paths:
   /checkin/facial-scan:
     post:
@@ -13,14 +18,19 @@ paths:
           application/json:
             schema:
               type: object
-              required: [imageData]
+              required:
+                - imageData
               properties:
                 imageData:
                   type: string
                   format: byte
+                  description: Base64-encoded facial image data
       responses:
         '200':
           description: Guest matched and checked in
+        '400':
+          description: Invalid or missing image data
+
   /checkin/status/{guestId}:
     get:
       summary: Check-in status for a guest
@@ -30,6 +40,7 @@ paths:
           required: true
           schema:
             type: string
+          description: Unique identifier of the guest
       responses:
         '200':
           description: Current check-in status
@@ -41,3 +52,6 @@ paths:
                   status:
                     type: string
                     enum: [pending, confirmed, rejected]
+                    description: Current status of guest check-in
+        '404':
+          description: Guest not found
