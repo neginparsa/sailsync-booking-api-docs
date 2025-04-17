@@ -13,15 +13,16 @@ paths:
           application/json:
             schema:
               type: object
-              required: [imageData]
+              required:
+                - imageData
               properties:
                 imageData:
                   type: string
                   format: byte
       responses:
-        '200':
+        "200":
           description: Identity verified
-  /identity/history/{guestId}:
+  "/identity/history/{guestId}":
     get:
       summary: Retrieve verification history
       parameters:
@@ -31,7 +32,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Verification history
           content:
             application/json:
