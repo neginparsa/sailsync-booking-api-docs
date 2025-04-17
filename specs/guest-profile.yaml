@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: API for managing guest identities, preferences, and loyalty tiers.
 paths:
-  /guests/{guestId}:
+  "/guests/{guestId}":
     get:
       summary: Get guest profile
       parameters:
@@ -14,7 +14,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Guest profile details
           content:
             application/json:
