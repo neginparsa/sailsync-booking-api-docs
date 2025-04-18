@@ -1,0 +1,76 @@
+openapi: 3.0.3
+info:
+  title: Face Recognition Service
+  version: 1.0.0
+  description: API to enroll and identify guests using facial recognition powered by Azure Face API.
+
+paths:
+  /face/enroll:
+    post:
+      summary: Enroll guest face
+      description: Upload a face image and link to a guest ID. Internally creates a person in Azure and trains the person group.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                guestId:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Face enrolled successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  personId:
+                    type: string
+                  persistedFaceId:
+                    type: string
+
+  /face/identify:
+    post:
+      summary: Identify guest from facial scan
+      description: Uses Azure Face API to detect and identify a guest based on live scan.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Guest match result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  matched:
+                    type: boolean
+                  confidence:
+                    type: number
+                    format: float
+                  guestId:
+                    type: string
+                    nullable: true
+
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+security:
+  - apiKeyAuth: []
