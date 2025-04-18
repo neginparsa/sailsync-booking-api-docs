@@ -26,6 +26,7 @@ paths:
         - name: guestId
           in: path
           required: true
+          description: Unique identifier for the guest
           schema:
             type: string
       responses:
@@ -51,6 +52,7 @@ paths:
         - name: guestId
           in: path
           required: true
+          description: Unique identifier for the guest
           schema:
             type: string
       requestBody:
@@ -91,6 +93,7 @@ paths:
         - name: guestId
           in: path
           required: true
+          description: Unique identifier for the guest
           schema:
             type: string
         - name: limit
